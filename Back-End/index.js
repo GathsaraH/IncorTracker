@@ -12,7 +12,7 @@ app.use(authRoutes);
 app.use(incomeRoutes);
 
 //dbURI
-const dbURI = 'mongodb+srv://Gathsara:root@incotracker.n61gn.mongodb.net/Inco-Tracker?retryWrites=true&w=majority';
+const dbURI = '';
 //connect to the db
 mongoose
 	.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
