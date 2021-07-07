@@ -1,3 +1,4 @@
+// npm install @react-native-community/async-storage
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -12,7 +13,7 @@ app.use(authRoutes);
 app.use(incomeRoutes);
 
 //dbURI
-const dbURI = '';
+const dbURI = 'mongodb+srv://Gathsara:root@incotracker.n61gn.mongodb.net/Inco-Tracker?retryWrites=true&w=majority';
 //connect to the db
 mongoose
 	.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -31,7 +32,7 @@ mongoose.set('useCreateIndex', true);
 app.get('/', requireToken, (req, res) => {
 	const data = req.users.email;
 	const data2 = req.users._id;
-	res.send(data2);
+	res.send(data);
 });
 
 //get

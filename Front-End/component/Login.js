@@ -21,7 +21,7 @@ export default class Login extends Component {
 			password: this.state.password
 		};
 
-		fetch('https://d971631a597f.ngrok.io/sign-in', {
+		fetch('https://incotracker.herokuapp.com/sign-in', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(userData)
@@ -47,9 +47,9 @@ export default class Login extends Component {
 
 	render() {
 		return (
-			<LinearGradient colors={['#c31432', '#240b36']} style={styles.container}>
+			<LinearGradient colors={['#009FFF', '#ec2F4B']} style={styles.container}>
 				<Text style={styles.logo}>Hello</Text>
-				<Text style={styles.logo2}>Sign in to your account</Text>
+				<Text style={styles.logo2}>Sign in to your IncoTracker account</Text>
 				<View style={styles.inputView}>
 					<TextInput
 						style={styles.inputText}
@@ -96,7 +96,6 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#003f5c',
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
@@ -110,7 +109,8 @@ const styles = StyleSheet.create({
 		fontWeight: '400',
 		fontSize: 16,
 		lineHeight: 24,
-		top: -30
+		top: -30,
+		color: '#FFFF'
 	},
 	inputView: {
 		width: '80%',
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
 	},
 	loginBtn: {
 		width: '80%',
-		backgroundColor: '#fb5b5a',
+		backgroundColor: '#203A43',
 		borderRadius: 25,
 		height: 50,
 		alignItems: 'center',

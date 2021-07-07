@@ -1,8 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const incomeSchema = new Schema({
-	_id: {
-		type: Schema.Types.ObjectId,
+	email: {
+		type: String,
+		required: true
+	},
+	month: {
+		type: String,
+		required: true
+	},
+	income: {
+		type: String,
 		required: true
 	}
 });

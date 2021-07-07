@@ -25,7 +25,7 @@ export default class Register extends Component {
 
 		// const {name, pnumber, email, password} = this.state;
 		// fetch('https://incotracker.herokuapp.com/register', {
-		fetch('https://0dd22b97a2ea.ngrok.io/register', {
+		fetch('https://incotracker.herokuapp.com/register', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(userData)
@@ -67,6 +67,7 @@ export default class Register extends Component {
 						style={styles.inputText}
 						placeholder="Number..."
 						placeholderTextColor="#003f5c"
+						keyboardType="numeric"
 						onChangeText={(pnumber) => this.setState({ pnumber })}
 						// onChangeText={text => this.setState({pnumber: text})}
 					/>
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
 	},
 	inputView: {
 		width: '80%',
-		backgroundColor: 'white',
+		backgroundColor: '#465881',
 		borderRadius: 25,
 		height: 50,
 		marginBottom: 20,

@@ -44,6 +44,7 @@ import Login from './component/Login';
 import Register from './component/Register';
 import firebase from 'firebase';
 import HomePage from './component/HomePage';
+import AddIncomeDetails from './component/AddIncomeDetails';
 import LoadingScreen from './component/LoadingScreen';
 import AsyncStorage from '@react-native-community/async-storage';
 // firebase.initializeApp({
@@ -76,6 +77,7 @@ const App = () => {
 				<Stack.Screen options={{ headerShown: false }} name="HomePage" component={HomePage} />
 				<Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
 				<Stack.Screen options={{ headerShown: false }} name="Register" component={Register} />
+				<Stack.Screen options={{ headerShown: false }} name="AddIncomeDetails" component={AddIncomeDetails} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
