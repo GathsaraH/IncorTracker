@@ -3,12 +3,18 @@ const router = express.Router();
 const Income = require('../Model/Income');
 
 router.post('/income', async (req, res) => {
+	const income1= req.body.income;
+	const expense2=req.body.expense;
+	const incomeValue=Integer.parseInt(income1)
+	const expenseValue=Integer.parseInt(expense2)
+    const total=incomeValue-expenseValue
 	try {
 		const income = new Income({
 			email: req.body.email,
 			month: req.body.month,
 			income: req.body.income,
-			expense:req.body.expense
+			expense:req.body.expense,
+			total:total
 		});
           
 		// Solved Income
