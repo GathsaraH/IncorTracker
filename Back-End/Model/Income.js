@@ -12,7 +12,16 @@ const incomeSchema = new Schema({
 	income: {
 		type: String,
 		required: true
+	},
+	expense:{
+		type: String,
+		required: true
 	}
+
+	// total:{
+	// 	type: String,
+	// 	required: true
+	// }
 });
 
 const Income = mongoose.model('Income', incomeSchema);

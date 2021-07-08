@@ -7,8 +7,12 @@ router.post('/income', async (req, res) => {
 		const income = new Income({
 			email: req.body.email,
 			month: req.body.month,
-			income: req.body.income
+			income: req.body.income,
+			expense:req.body.expense
 		});
+          
+		// Solved Income
+		// Income.income-Income.express
 		await income.save().then((data) => {
 			console.log(data);
 			res.send(data);
