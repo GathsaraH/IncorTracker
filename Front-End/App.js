@@ -36,16 +36,24 @@
 // }
 
 /* eslint-disable prettier/prettier */
-import React, { Component, useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, {Component, useEffect, useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import Login from './component/Login';
 import Register from './component/Register';
 import firebase from 'firebase';
 import HomePage from './component/HomePage';
 import AddIncomeDetails from './component/AddIncomeDetails';
 import LoadingScreen from './component/LoadingScreen';
+import TableView from './component/TableView';
+import forgetPassword from './component/forgetPassword';
 import AsyncStorage from '@react-native-community/async-storage';
 // firebase.initializeApp({
 // 	apiKey: 'AIzaSyBduj4gXbZNyhbpLn6Q6i9eep2BlIOO-yY ',
@@ -57,30 +65,60 @@ import AsyncStorage from '@react-native-community/async-storage';
 const Stack = createStackNavigator();
 
 const App = () => {
-	const [IsLoggedIn, setLogged] = useState(null);
-	const detectLogin = async () => {
-		const token = await AsyncStorage.getItem('token');
-		if (token) {
-			setLogged(true);
-		} else {
-			setLogged(false);
-		}
-	};
-	useEffect(() => {
-		detectLogin();
-	}, []);
+  const [IsLoggedIn, setLogged] = useState(null);
+  const detectLogin = async () => {
+    const token = await AsyncStorage.getItem('token');
+    if (token) {
+      setLogged(true);
+    } else {
+      setLogged(false);
+    }
+  };
+  useEffect(() => {
+    detectLogin();
+  }, []);
 
-	return (
-		<NavigationContainer>
-			<Stack.Navigator>
-				<Stack.Screen options={{ headerShown: false }} name="LoadingScreen" component={LoadingScreen} />
-				<Stack.Screen options={{ headerShown: false }} name="HomePage" component={HomePage} />
-				<Stack.Screen options={{ headerShown: false }} name="Login" component={Login} />
-				<Stack.Screen options={{ headerShown: false }} name="Register" component={Register} />
-				<Stack.Screen options={{ headerShown: false }} name="AddIncomeDetails" component={AddIncomeDetails} />
-			</Stack.Navigator>
-		</NavigationContainer>
-	);
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="LoadingScreen"
+          component={LoadingScreen}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="HomePage"
+          component={HomePage}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Login"
+          component={Login}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Register"
+          component={Register}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="AddIncomeDetails"
+          component={AddIncomeDetails}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="TableView"
+          component={TableView}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="forgetPassword"
+          component={forgetPassword}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };
 
 export default App;

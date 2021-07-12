@@ -81,10 +81,11 @@ const AddIncomeDetails = () => {
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}>
-      <LinearGradient colors={['#FC466B', '#3F5EFB']} style={styles.container}>
+      <LinearGradient colors={['#FFF', '#FFF']} style={styles.container}>
+        <Text style={styles.logo}>Add Youe Income And Expense</Text>
         <Image
           style={styles.incomePic}
-          source={require('../assets/undraw_wallet_aym5.png')}
+          source={require('../assets/money.gif')}
         />
 
         <DropDownPicker
@@ -111,7 +112,23 @@ const AddIncomeDetails = () => {
         />
         <TextInput
           style={styles.inputText}
-          label="Expense"
+          label="Food Expense"
+          theme={theme}
+          keyboardType="numeric"
+          mode="outlined"
+          // onChangeText={text => setOutGoin(text)}
+        />
+        <TextInput
+          style={styles.inputText}
+          label="Health Expense"
+          theme={theme}
+          keyboardType="numeric"
+          mode="outlined"
+          // onChangeText={text => setOutGoin(text)}
+        />
+        <TextInput
+          style={styles.inputText}
+          label="Others"
           value={outgoin}
           theme={theme}
           keyboardType="numeric"
@@ -142,15 +159,16 @@ const styles = StyleSheet.create({
   },
   inputText: {
     margin: 10,
+    marginBottom: 10,
   },
   incomePic: {
-    width: 200,
-    height: 200,
+    width: 100,
+    height: 100,
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
-    left: 90,
+    left: 130,
   },
   container: {
     flex: 1,
@@ -159,6 +177,18 @@ const styles = StyleSheet.create({
   monthPicker: {
     margin: 5,
     width: 380,
+  },
+  logo: {
+    fontWeight: 'bold',
+    fontSize: 30,
+    textAlign: 'center',
+    fontFamily: 'afterprint',
+    bottom: -12,
+    color: '#2c2c54',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 10,
+    top: 6,
   },
   loginBtn: {
     width: '80%',
@@ -170,9 +200,16 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginBottom: 10,
     left: 50,
+    shadowOffset: {
+      width: 10,
+      height: 12,
+    },
+    shadowOpacity: 20,
+    shadowRadius: 16.0,
+    elevation: 24,
   },
   loginText: {
-    color: 'white',
+    color: '#000000',
   },
 });
 

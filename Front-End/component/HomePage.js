@@ -4,7 +4,9 @@ import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import {Button, TextInput, FAB} from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
-import {LineChart, ProgressChart, BarChart} from 'react-native-chart-kit';
+import {Card} from 'react-native-shadow-cards';
+import GradientHeader from 'react-native-gradient-header';
+import {LineChart, ProgressChart, PieChart} from 'react-native-chart-kit';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
   VictoryBar,
@@ -21,6 +23,9 @@ export default class HomePage extends Component {
       data: '',
       email: '',
       total: '',
+      profit: '',
+      expense: '',
+      income: '',
     };
   }
 
@@ -43,9 +48,19 @@ export default class HomePage extends Component {
         })
           .then(response => response.json())
           .then(response => {
-            const test = this.setState({total: response.total});
             console.log(response);
-            console.log(test);
+            const array = response;
+            for (const i of array) {
+              const profit = i.total;
+              const expense = i.expense;
+              const income = i.income;
+              this.setState({profit: profit});
+              this.setState({expense: expense});
+              this.setState({income: income});
+              console.log(profit);
+            }
+
+            // console.log();
           });
       });
   }
@@ -57,23 +72,109 @@ export default class HomePage extends Component {
   };
 
   render() {
+    // const data = [
+    //   {
+    //     name: 'Income',
+    //     value: this.state.income,
+    //     color: '#227093',
+    //     legendFontColor: '#7F7F7F',
+    //     legendFontSize: 15,
+    //   },
+    //   {
+    //     name: 'Expense',
+    //     value: this.state.expense,
+    //     color: '#ffb142',
+    //     legendFontColor: '#7F7F7F',
+    //     legendFontSize: 15,
+    //   },
+    //   {
+    //     name: 'Others',
+    //     value: 30000,
+    //     color: '#c0392b',
+    //     legendFontColor: '#7F7F7F',
+    //     legendFontSize: 15,
+    //   },
+    //   {
+    //     name: 'Balance',
+    //     value: this.state.profit,
+    //     color: '#218c74',
+    //     legendFontColor: '#7F7F7F',
+    //     legendFontSize: 15,
+    //   },
+    // ];
+
+    const data = [
+      {
+        name: 'Income',
+        value: 50000,
+        color: '#227093',
+        legendFontColor: '#7F7F7F',
+        legendFontSize: 15,
+      },
+      {
+        name: 'Expense',
+        value: 30000,
+        color: '#ffb142',
+        legendFontColor: '#7F7F7F',
+        legendFontSize: 15,
+      },
+      {
+        name: 'Balance',
+        value: 20000,
+        color: '#218c74',
+        legendFontColor: '#7F7F7F',
+        legendFontSize: 15,
+      },
+      {
+        name: 'Others',
+        value: 30000,
+        color: '#c0392b',
+        legendFontColor: '#7F7F7F',
+        legendFontSize: 15,
+      },
+    ];
+
+    const screenWidth = Dimensions.get('window').width;
+
+    const chartConfig = {
+      backgroundGradientFrom: '#e55039',
+      backgroundGradientFromOpacity: 0,
+      backgroundGradientTo: '#08130D',
+      backgroundGradientToOpacity: 0.5,
+      color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+      strokeWidth: 2, // optional, default 3
+      barPercentage: 0.5,
+      useShadowColorFromDataset: false, // optional
+    };
+
     return (
-      <LinearGradient colors={['#009FFF', '#ec2F4B']} style={styles.container}>
-        {/* <Text style={styles.mainText}>Your Monthly Income</Text> */}
-        <Animatable.View
-          style={styles.HeaderMainContain}
-          animation="fadeInUpBig">
-          <View style={styles.monthlyOverviewContainer}>
-            <View style={styles.detailsContainer}>
-              <View style={styles.monthlyExpenseContainer}>
-                <Text style={styles.expenseTitle}>Balance</Text>
-                <Text style={styles.expenseValue}>Rs:25000{this.state.total}</Text>
-              </View>
-            </View>
-          </View>
-        </Animatable.View>
+      <LinearGradient colors={['#FFF', '#FFF']} style={styles.container}>
+        <GradientHeader
+          title="Welcome"
+          subtitle="Gathsara Umesh"
+          gradientColors={['#fc00ff', '#00dbde']}
+          imageSource={require('../assets/avataaars.png')}
+        />
+
         <Animatable.View animation="lightSpeedIn">
-          <LineChart
+          <Card style={styles.boxShadow}>
+            <PieChart
+              style={styles.pieChart}
+              data={data}
+              width={screenWidth}
+              height={200}
+              doughnut={true}
+              chartConfig={chartConfig}
+              accessor={'value'}
+              backgroundColor={'transparent'}
+              coverRadius={0.45}
+              coverFill={'#FFF'}
+              absolute
+            />
+          </Card>
+        </Animatable.View>
+        {/* <Animatable.View animation="lightSpeedIn"> */}
+        {/* <LineChart
             data={{
               labels: ['Jan', 'Feb', 'Mar', 'Apr'],
               datasets: [
@@ -110,12 +211,12 @@ export default class HomePage extends Component {
             bezier
             // eslint-disable-next-line react-native/no-inline-styles
             style={styles.chart1}
-          />
-        </Animatable.View>
+          /> */}
+        {/* </Animatable.View> */}
         <Animatable.View animation="zoomInUp" style={styles.mainDetails2}>
           <Image
             style={styles.homeImg1}
-            source={require('../assets/income4.png')}
+            source={require('../assets/income.gif')}
           />
           <Text
             onPress={() => this.props.navigation.navigate('AddIncomeDetails')}
@@ -124,11 +225,10 @@ export default class HomePage extends Component {
             ADD INCOME
           </Text>
         </Animatable.View>
-
         <Animatable.View animation="zoomInDown" style={styles.mainDetails2}>
           <Image
             style={styles.homeImg2}
-            source={require('../assets/icons8-budget-48.png')}
+            source={require('../assets/login.gif')}
           />
           <Text
             onPress={() => this.props.navigation.navigate('AddIncomeDetails')}
@@ -140,24 +240,23 @@ export default class HomePage extends Component {
         <Animatable.View animation="zoomInUp" style={styles.mainDetails2}>
           <Image
             style={styles.homeImg3}
-            source={require('../assets/icons8-report-64.png')}
+            source={require('../assets/reports.gif')}
           />
-          <Text style={styles.homeText3}> ALL TRANSACTION</Text>
-        </Animatable.View>
-        <Animatable.View animation="zoomInDown" style={styles.mainDetails2}>
-          <Image
-            style={styles.homeImg4}
-            source={require('../assets/icons8-transaction-48.png')}
-          />
-          <Text style={styles.homeText4}> REPORTS</Text>
+          <Text
+            style={styles.homeText3}
+            onPress={() => this.props.navigation.navigate('TableView')}>
+            {' '}
+            REPORTS
+          </Text>
         </Animatable.View>
         <Button
           mode="contained"
+          // eslint-disable-next-line react-native/no-inline-styles
           style={{
             marginLeft: 18,
             marginRight: 18,
             marginTop: 50,
-            top: -220,
+            top: 180,
             position: 'relative',
           }}
           onPress={() => {
@@ -214,6 +313,16 @@ export default class HomePage extends Component {
 }
 const {width, height} = Dimensions.get('screen');
 const styles = StyleSheet.create({
+  pieChart: {
+    top: 0,
+    left: 0,
+  },
+  homeImg: {
+    width: 100,
+    height: 100,
+    left: 120,
+    top: 5,
+  },
   fab: {
     position: 'absolute',
     margin: 16,
@@ -222,32 +331,34 @@ const styles = StyleSheet.create({
     display: 'none',
   },
   homeImg1: {
-    top: -2,
-    left: 100,
+    top: 1,
+    left: 70,
+    height: 30,
+    width: 40,
   },
   homeImg2: {
-    top: -2,
-    left: 100,
+    top: 1.5,
+    left: 70,
     width: 40,
-    height: 40,
+    height: 30,
   },
   homeImg3: {
-    top: -2,
-    left: 100,
+    top: 0,
+    left: 70,
     width: 40,
     height: 40,
   },
   homeImg4: {
     top: -2,
-    left: 100,
+    left: 70,
   },
   homeText1: {
     textAlign: 'center',
-    top: -35,
+    top: -21,
   },
   homeText2: {
     textAlign: 'center',
-    top: -30,
+    top: -20,
   },
   homeText3: {
     textAlign: 'center',
@@ -259,19 +370,20 @@ const styles = StyleSheet.create({
   },
   mainDetails2: {
     backgroundColor: '#FFFFFF',
-    width: 380,
-    top: -180,
-    left: -2,
+    width: 320,
+    top: 180,
+    left: 30,
     height: 40,
-    shadowColor: '#FFFFFF',
+    shadowColor: '#000000',
     shadowOffset: {
-      width: 0,
-      height: 10,
+      width: 10,
+      height: 12,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 20,
-    borderRadius: 10,
-    margin: 10,
+    shadowOpacity: 20,
+    shadowRadius: 16.0,
+    elevation: 24,
+    borderRadius: 20,
+    margin: 15,
   },
   rootL: {
     flex: 1,
@@ -306,18 +418,21 @@ const styles = StyleSheet.create({
   },
   HeaderMainContain: {
     width: width,
-    height: 300,
+    height: 200,
     position: 'relative',
     top: -299,
   },
   monthlyOverviewContainer: {
     width: '100%',
     height: 120,
-    backgroundColor: '#10ac84',
+    // backgroundColor: '#10ac84',
     alignItems: 'center',
     top: 293,
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 100,
   },
   detailsContainer: {
     position: 'absolute',
@@ -337,12 +452,34 @@ const styles = StyleSheet.create({
   },
   expenseValue: {
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: 15,
     color: '#323432',
+    left: -120,
   },
   expenseTitle: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: '100',
+    left: -120,
+  },
+
+  //Shadow Start
+  boxShadow: {
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 10,
+      height: 12,
+    },
+    shadowOpacity: 20,
+    shadowRadius: 16.0,
+    elevation: 24,
+    borderRadius: 20,
+
+    //Shadow End
+
+    top: 170,
+    left: 12,
+    height: 230,
+    width: 370,
   },
 });
